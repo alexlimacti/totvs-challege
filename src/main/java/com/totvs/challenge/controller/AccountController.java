@@ -105,7 +105,7 @@ public class AccountController {
                     content = { @Content(mediaType = "application/json") })
     })
     @GetMapping("/get-account/{accountID}")
-    public ResponseEntity<AccountGetDTO> getAccount(@RequestParam Long accountID) {
+    public ResponseEntity<AccountGetDTO> getAccount(@PathVariable Long accountID) {
         return ResponseEntity.ok(accountService.findAccountById(accountID));
     }
 
