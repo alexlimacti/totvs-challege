@@ -30,6 +30,6 @@ public class AccountSpecification {
     }
 
     private static Specification<Account> hasStatus(String status) {
-        return (root, query, cb) -> status == null ? cb.conjunction() : cb.lessThan(root.get("status"), status);
+        return (root, query, cb) -> status == null ? cb.conjunction() : cb.equal(root.get("status"), status);
     }
 }
