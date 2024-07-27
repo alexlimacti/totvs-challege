@@ -1,7 +1,9 @@
 package com.totvs.challenge.service;
 
 import com.totvs.challenge.dto.AccountDTO;
+import com.totvs.challenge.dto.AccountFilterDTO;
 import com.totvs.challenge.dto.AccountGetDTO;
+import com.totvs.challenge.dto.AccountPageResponse;
 import com.totvs.challenge.dto.AccountStatusDTO;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,4 +26,6 @@ public interface AccountService {
     List<AccountGetDTO> findAccountsByDueDateBetween(LocalDate initialDate, LocalDate finalDate);
 
     List<AccountGetDTO> findAccountsByPayDayBetween(LocalDate initialDate, LocalDate finalDate);
+
+    AccountPageResponse<AccountGetDTO> findByFilter(AccountFilterDTO filter, int page, int size);
 }

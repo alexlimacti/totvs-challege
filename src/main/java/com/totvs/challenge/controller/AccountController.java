@@ -1,7 +1,9 @@
 package com.totvs.challenge.controller;
 
 import com.totvs.challenge.dto.AccountDTO;
+import com.totvs.challenge.dto.AccountFilterDTO;
 import com.totvs.challenge.dto.AccountGetDTO;
+import com.totvs.challenge.dto.AccountPageResponse;
 import com.totvs.challenge.dto.AccountStatusDTO;
 import com.totvs.challenge.service.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -121,7 +123,7 @@ public class AccountController {
         return ResponseEntity.ok(accountService.findAccountsByDueDateBetween(dueDateInitial, dueDateFinal));
     }
 
-    @Operation(summary = "Busca de conta por período na data de pagamento")
+    @Operation(summary = "Busca de contas por período na data de pagamento")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Contas encontradas e retornadas",
                     content = { @Content(
@@ -133,6 +135,20 @@ public class AccountController {
     @GetMapping("/get-accounts-between-payday/{paydayInitial}/{paydayFinal}")
     public ResponseEntity<List<AccountGetDTO>> getAccountsBetweenPayDay(@PathVariable @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate paydayInitial, @PathVariable @DateTimeFormat(pattern="dd-MM-yyyy") LocalDate paydayFinal) {
         return ResponseEntity.ok(accountService.findAccountsByPayDayBetween(paydayInitial, paydayFinal));
+    }
+
+    @Operation(summary = "Busca de contas com filtro")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Contas encontradas e retornadas",
+                    content = { @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(
+                                    schema = @Schema(implementation = AccountGetDTO.class)))
+                    })
+    })
+    @GetMapping("/get-accounts-with-filter")
+    public ResponseEntity<AccountPageResponse<AccountGetDTO>> findByFilter(AccountFilterDTO accountFilterDTO) {
+        return ResponseEntity.ok(accountService.findByFilter(accountFilterDTO, accountFilterDTO.getPage(), accountFilterDTO. getSize()));
     }
 
 }

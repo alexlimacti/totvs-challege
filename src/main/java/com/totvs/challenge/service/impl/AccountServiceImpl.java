@@ -1,29 +1,32 @@
 package com.totvs.challenge.service.impl;
 
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
+import com.totvs.challenge.dto.AccountCsvDTO;
+import com.totvs.challenge.dto.AccountDTO;
+import com.totvs.challenge.dto.AccountFilterDTO;
+import com.totvs.challenge.dto.AccountGetDTO;
+import com.totvs.challenge.dto.AccountPageResponse;
+import com.totvs.challenge.dto.AccountStatusDTO;
+import com.totvs.challenge.exception.AccountNotFoundException;
+import com.totvs.challenge.model.Account;
+import com.totvs.challenge.repository.AccountRepository;
+import com.totvs.challenge.repository.specification.AccountSpecification;
+import com.totvs.challenge.service.AccountService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.totvs.challenge.dto.AccountGetDTO;
-import com.totvs.challenge.dto.AccountStatusDTO;
-import com.totvs.challenge.service.AccountService;
-import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
-import com.totvs.challenge.dto.AccountDTO;
-import com.totvs.challenge.dto.AccountCsvDTO;
-import com.totvs.challenge.exception.AccountNotFoundException;
-import com.totvs.challenge.model.Account;
-import com.totvs.challenge.repository.AccountRepository;
-
-import lombok.RequiredArgsConstructor;
 
 @Service
 @Slf4j
@@ -74,6 +77,12 @@ public class AccountServiceImpl implements AccountService {
         log.info("AccountServiceImpl.changeStatus - finish");
     }
 
+    public AccountPageResponse<AccountGetDTO> findByFilter(AccountFilterDTO filter, int page, int size) {
+        var spec = AccountSpecification.filterBy(filter);
+        var pageResult = accountRepository.findAll(spec, PageRequest.of(page, size));
+        return mapAccountToResponse(pageResult);
+    }
+
     public void readAndSaveCSVAccounts(MultipartFile file) throws IOException {
         log.info("AccountServiceImpl.readAndSaveCSVAccounts - start");
         if (file.isEmpty())
@@ -111,6 +120,18 @@ public class AccountServiceImpl implements AccountService {
                 .map(csv -> modelMapper.map(csv, AccountGetDTO.class))
                 .collect(Collectors.toList());
     }
+
+    private AccountPageResponse<AccountGetDTO> mapAccountToResponse(Page<Account> accountPage)  {
+        var pageResponse = new AccountPageResponse<AccountGetDTO>();
+        pageResponse.setTotalPages(accountPage.getTotalPages());
+        pageResponse.setTotalSize(accountPage.getTotalElements());
+        pageResponse.setPage(accountPage.getNumber());
+        pageResponse.setSize(accountPage.getSize());
+        pageResponse.setContent(mapAccountToAccountGetDTO(accountPage.getContent()));
+        return pageResponse;
+    }
+
+
 
 
 }
