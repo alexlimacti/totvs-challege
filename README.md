@@ -12,10 +12,14 @@ obter informações sobre as contas cadastradsa no banco de dados e importar um 
 - [x] Testes unitários
 
 # Swagger e Postman
+Para acesso ao Swagger, com a aplicação em execução, acessar a URL abaixo
+> http://localhost:8080/swagger-ui/index.html
+
 ![alt text](/readme/swagger.png)
+<br/>
+> [!NOTE]
+> Collection para importação no postman disponível no diretório `postman`
 
 # Ambiente
 > [!NOTE]
-> Para subir o ambiente (base de dados), se faz necessário executar o comando abaixo dentro do diretório `ambiente`
-
-> docker-compose up
+> Para subir o ambiente (base de dados), se faz necessário executar o comando `docker-compose up` dentro do diretório `ambiente`
