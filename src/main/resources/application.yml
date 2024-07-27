@@ -1,0 +1,25 @@
+spring:
+        application:
+                name: challenge
+        datasource:
+                url: jdbc:postgresql://localhost:5432/totvs-challenge
+                username: postgres
+                password: postgres
+                driver-class-name: org.postgresql.Driver
+        jpa:
+                show-sql: false
+                properties:
+                        hibernate:
+                                format_sql: false
+                hibernate:
+                                ddl-auto: none
+        jackson:
+                date-format: dd-MM-yyyy
+server:
+        error:
+                include-message: always
+springdoc:
+        swagger-ui:
+                path: /swagger-ui.html
+        api-docs:
+                path: /api-docs
