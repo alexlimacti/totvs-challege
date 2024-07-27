@@ -1,0 +1,235 @@
+{
+	"info": {
+		"_postman_id": "596fe9ee-08ab-47d6-a4e8-a0d42701d659",
+		"name": "Totvs-Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13395658"
+	},
+	"item": [
+		{
+			"name": "GET List accounts using filter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/account/get-accounts-with-filter?dueDate=10-05-2024&payDay=10-05-2024&description=Doido&status=CREATED",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"account",
+						"get-accounts-with-filter"
+					],
+					"query": [
+						{
+							"key": "dueDate",
+							"value": "10-05-2024"
+						},
+						{
+							"key": "payDay",
+							"value": "10-05-2024"
+						},
+						{
+							"key": "description",
+							"value": "Doido"
+						},
+						{
+							"key": "status",
+							"value": "CREATED"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Create accounts in lot",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/alexsandrolimasilva/Downloads/conta.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/account/upload",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"account",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Search account by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/account/get-account/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"account",
+						"get-account",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Update account by ID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data_vencimento\": \"16-04-2022\",\n  \"data_pagamento\": \"17-05-2022\",\n  \"valor\": 100.5,\n  \"descricao\": \"Teste de pagamento\",\n  \"situacao\": \"PAGO\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/account/update/21",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"account",
+						"update",
+						"21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Create account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data_vencimento\": \"16-04-2022\",\n  \"data_pagamento\": \"17-05-2022\",\n  \"valor\": 100.5,\n  \"descricao\": \"Teste de pagamento\",\n  \"situacao\": \"PAGO\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/account",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Change status",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"situacao\": \"ABERTO\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/account/change-status/23",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"account",
+						"change-status",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Search accounts by pay day on period",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/account/get-accounts-between-payday/10-10-2022/15-10-2024",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"account",
+						"get-accounts-between-payday",
+						"10-10-2022",
+						"15-10-2024"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Search accounts by due date on period",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/account/get-accounts-between-duedate/10-10-2022/15-10-2024",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"account",
+						"get-accounts-between-duedate",
+						"10-10-2022",
+						"15-10-2024"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

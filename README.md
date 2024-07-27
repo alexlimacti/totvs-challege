@@ -20,6 +20,9 @@ Para acesso ao Swagger, com a aplicação em execução, acessar a URL abaixo
 > [!NOTE]
 > Collection para importação no postman disponível no diretório `postman`
 
+> [!TIP]
+> Para teste de upload, usar modelo disponível no diretório `csv_template`
+
 # Ambiente
 > [!NOTE]
 > Para subir o ambiente (base de dados), se faz necessário executar o comando `docker-compose up` dentro do diretório `ambiente`

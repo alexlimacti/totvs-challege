@@ -1,0 +1,5 @@
+data_pagamento,data_vencimento,valor,id,descricao,situacao
+,,5.00,1,,PARTIAL-PAYED
+10-05-2024,10-05-2024,10.00,2,Doido,CREATED
+10-10-2024,10-10-2024,20.50,3,Simbora,OPEN
+28-10-2024,28-10-2024,10.50,4,string,string
